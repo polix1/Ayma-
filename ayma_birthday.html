@@ -1,0 +1,1149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Happy Birthday Ayma 🌸</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Lato:wght@300;400&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --blush:     #F9C6D0;
+    --rose:      #F2879A;
+    --deep-rose: #C9506A;
+    --petal:     #FDE8EE;
+    --cream:     #FFF6F8;
+    --leaf:      #B5D5A0;
+    --gold:      #E8B86D;
+    --text:      #5A2A35;
+  }
+
+  body {
+    min-height: 100vh;
+    background: var(--petal);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Lato', sans-serif;
+    padding: 24px;
+    background-image:
+      radial-gradient(circle at 10% 20%, #fdd8e5 0%, transparent 40%),
+      radial-gradient(circle at 90% 80%, #fbc8d8 0%, transparent 40%);
+  }
+
+  /* ─────────────── LOCK SCREEN ─────────────── */
+  #lock-screen {
+    background: var(--cream);
+    border-radius: 32px;
+    max-width: 460px;
+    width: 100%;
+    padding: 52px 40px 44px;
+    box-shadow: 0 4px 32px rgba(201,80,106,0.14);
+    text-align: center;
+    animation: floatIn 0.7s cubic-bezier(.22,.68,0,1.2) both;
+    position: relative;
+    overflow: hidden;
+  }
+
+  #lock-screen .lock-flower { font-size: 56px; margin-bottom: 16px; display: block;
+    animation: wiggle 3s ease-in-out infinite; }
+  @keyframes wiggle {
+    0%,100% { transform: rotate(-5deg); }
+    50%      { transform: rotate(5deg); }
+  }
+
+  #lock-screen h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: 28px;
+    color: var(--deep-rose);
+    margin-bottom: 6px;
+  }
+  #lock-screen .subtitle {
+    color: var(--rose);
+    font-size: 14px;
+    margin-bottom: 32px;
+    line-height: 1.5;
+  }
+
+  /* countdown tiles */
+  .countdown-row {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    margin-bottom: 32px;
+    flex-wrap: wrap;
+  }
+  .cd-tile {
+    background: var(--petal);
+    border: 1.5px solid var(--blush);
+    border-radius: 16px;
+    padding: 14px 18px 10px;
+    min-width: 72px;
+  }
+  .cd-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 36px;
+    color: var(--deep-rose);
+    line-height: 1;
+    display: block;
+  }
+  .cd-label {
+    font-size: 10px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--rose);
+    margin-top: 4px;
+    display: block;
+  }
+
+  /* password area */
+  .pw-divider {
+    display: flex; align-items: center; gap: 10px; margin-bottom: 20px;
+  }
+  .pw-divider-line { flex:1; height:1px; background: linear-gradient(90deg,transparent,var(--blush),transparent); }
+  .pw-divider span { font-size: 13px; color: var(--rose); white-space: nowrap; }
+
+  .pw-input-wrap { position: relative; margin-bottom: 12px; }
+  #pw-input {
+    width: 100%;
+    border: 1.5px solid var(--blush);
+    border-radius: 100px;
+    padding: 12px 48px 12px 22px;
+    font-size: 15px;
+    font-family: 'Lato', sans-serif;
+    color: var(--text);
+    background: white;
+    outline: none;
+    transition: border-color 0.2s;
+    letter-spacing: 3px;
+  }
+  #pw-input:focus { border-color: var(--rose); }
+  #pw-input.shake {
+    animation: shake 0.4s ease;
+    border-color: #e05070;
+  }
+  @keyframes shake {
+    0%,100% { transform: translateX(0); }
+    20%      { transform: translateX(-8px); }
+    40%      { transform: translateX(8px); }
+    60%      { transform: translateX(-5px); }
+    80%      { transform: translateX(5px); }
+  }
+
+  #pw-toggle {
+    position: absolute; right: 16px; top: 50%; transform: translateY(-50%);
+    background: none; border: none; cursor: pointer; font-size: 16px; padding: 0;
+  }
+
+  #pw-btn {
+    width: 100%;
+    background: linear-gradient(135deg, var(--rose), var(--deep-rose));
+    color: white;
+    border: none;
+    border-radius: 100px;
+    padding: 13px;
+    font-size: 14px;
+    font-family: 'Lato', sans-serif;
+    font-weight: 600;
+    letter-spacing: 1px;
+    cursor: pointer;
+    transition: opacity 0.2s, transform 0.1s;
+  }
+  #pw-btn:hover  { opacity: 0.9; }
+  #pw-btn:active { transform: scale(0.98); }
+
+  #pw-error {
+    color: #e05070;
+    font-size: 12px;
+    margin-top: 10px;
+    min-height: 18px;
+    letter-spacing: 0.3px;
+  }
+
+  /* birthday-day banner */
+  #bday-banner {
+    display: none;
+    background: linear-gradient(135deg, var(--rose), var(--deep-rose));
+    color: white;
+    border-radius: 100px;
+    padding: 10px 22px;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    margin-bottom: 28px;
+    animation: pulse 2s ease-in-out infinite;
+  }
+  @keyframes pulse {
+    0%,100% { box-shadow: 0 0 0 0 rgba(242,135,154,0.5); }
+    50%      { box-shadow: 0 0 0 10px rgba(242,135,154,0); }
+  }
+
+  /* ─────────────── CARD ─────────────── */
+  #card-wrap { display: none; }
+
+  .card {
+    background: var(--cream);
+    border-radius: 32px;
+    max-width: 540px;
+    width: 100%;
+    padding: 48px 44px 44px;
+    box-shadow: 0 4px 24px rgba(201,80,106,0.12), 0 1px 4px rgba(201,80,106,0.08);
+    position: relative;
+    overflow: hidden;
+    animation: floatIn 0.8s cubic-bezier(.22,.68,0,1.2) both;
+  }
+
+  @keyframes floatIn {
+    from { opacity: 0; transform: translateY(28px) scale(0.97); }
+    to   { opacity: 1; transform: translateY(0) scale(1); }
+  }
+
+  .corner { position: absolute; pointer-events: none; }
+  .corner.tl { top: -8px;  left: -8px; }
+  .corner.tr { top: -8px;  right: -8px; transform: scaleX(-1); }
+  .corner.bl { bottom: -8px; left: -8px; transform: scaleY(-1); }
+  .corner.br { bottom: -8px; right: -8px; transform: scale(-1,-1); }
+
+  .petal-bg { position: absolute; inset: 0; pointer-events: none; overflow: hidden; }
+  .fp {
+    position: absolute; font-size: 18px; opacity: 0.18;
+    animation: drift linear infinite;
+  }
+  @keyframes drift {
+    0%   { transform: translateY(0) rotate(0deg);   opacity: 0; }
+    10%  { opacity: 0.18; }
+    90%  { opacity: 0.18; }
+    100% { transform: translateY(-120px) rotate(360deg); opacity: 0; }
+  }
+
+  .tag {
+    display: inline-block; font-size: 11px; letter-spacing: 3px;
+    text-transform: uppercase; color: var(--deep-rose); background: var(--blush);
+    border-radius: 100px; padding: 4px 14px; margin-bottom: 14px;
+  }
+  .headline {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(32px,7vw,48px); color: var(--deep-rose); line-height:1.1; margin-bottom:4px;
+  }
+  .name {
+    font-family: 'Playfair Display', serif; font-style: italic;
+    font-size: clamp(42px,10vw,64px); color: var(--rose);
+    line-height:1; margin-bottom:24px; display:block;
+  }
+  .divider { display:flex; align-items:center; gap:10px; margin-bottom:24px; }
+  .divider-line { flex:1; height:1px; background:linear-gradient(90deg,transparent,var(--blush),transparent); }
+  .divider-icon { font-size:18px; }
+  .flower-row { display:flex; justify-content:center; gap:10px; margin-bottom:28px; flex-wrap:wrap; }
+  .flower-badge {
+    background:var(--petal); border:1.5px solid var(--blush); border-radius:50px;
+    padding:8px 16px; font-size:22px; transition:transform 0.2s ease; cursor:default;
+  }
+  .flower-badge:hover { transform:scale(1.18) rotate(-4deg); }
+  .letter-card {
+    background:white; border-left:3px solid var(--rose); border-radius:16px;
+    padding:28px 28px 24px; margin-bottom:28px;
+    box-shadow:0 2px 12px rgba(242,135,154,0.1); position:relative;
+  }
+  .letter-label {
+    font-size:10px; letter-spacing:3px; text-transform:uppercase; color:var(--rose);
+    margin-bottom:14px; display:flex; align-items:center; gap:6px;
+  }
+  .letter-body {
+    font-family:'Playfair Display',serif; font-style:italic;
+    color:var(--text); line-height:1.8; font-size:15px;
+  }
+  .letter-body .salutation {
+    font-size:17px; font-weight:700; font-style:normal; color:var(--deep-rose);
+    display:block; margin-bottom:10px;
+  }
+  .letter-body .sign-off {
+    margin-top:14px; display:block; font-size:14px;
+    color:var(--rose); font-style:normal; letter-spacing:0.5px;
+  }
+  .letter-seal {
+    position:absolute; top:-14px; right:18px; width:36px; height:36px;
+    background:var(--rose); border-radius:50%; display:flex;
+    align-items:center; justify-content:center; font-size:16px;
+    box-shadow:0 2px 8px rgba(242,135,154,0.4);
+  }
+  .footer-row { display:flex; justify-content:center; gap:12px; flex-wrap:wrap; }
+  .badge {
+    display:flex; align-items:center; gap:6px; background:var(--blush);
+    border-radius:100px; padding:7px 16px; font-size:12px;
+    color:var(--deep-rose); font-weight:600; letter-spacing:0.5px;
+  }
+
+  /* ─────────────── CHAPTER SELECT ─────────────── */
+  .chapter-intro {
+    font-size: 13px;
+    color: var(--rose);
+    margin-bottom: 18px;
+    letter-spacing: 0.5px;
+  }
+  .chapter-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    margin-bottom: 28px;
+  }
+  .chapter-btn {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    text-align: left;
+    background: white;
+    border: 1.5px solid var(--blush);
+    border-radius: 18px;
+    padding: 18px 20px;
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+    font-family: 'Lato', sans-serif;
+  }
+  .chapter-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(242,135,154,0.18);
+    border-color: var(--rose);
+  }
+  .chapter-icon {
+    font-size: 30px;
+    flex-shrink: 0;
+    background: var(--petal);
+    border-radius: 50%;
+    width: 52px; height: 52px;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .chapter-text { flex: 1; }
+  .chapter-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 17px;
+    color: var(--deep-rose);
+    margin-bottom: 2px;
+  }
+  .chapter-sub {
+    font-size: 12px;
+    color: var(--text);
+    opacity: 0.6;
+  }
+  .chapter-arrow {
+    font-size: 18px;
+    color: var(--rose);
+    flex-shrink: 0;
+  }
+
+  /* views */
+  .view-section { display: none; }
+  .back-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: none;
+    border: 1.5px solid var(--blush);
+    border-radius: 100px;
+    padding: 7px 18px;
+    font-size: 12px;
+    font-family: 'Lato', sans-serif;
+    font-weight: 600;
+    color: var(--deep-rose);
+    cursor: pointer;
+    margin-bottom: 22px;
+    transition: background 0.2s;
+  }
+  .back-btn:hover { background: var(--petal); }
+
+  /* why section */
+  .why-heading {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: 24px;
+    color: var(--deep-rose);
+    margin-bottom: 6px;
+  }
+  .why-sub {
+    font-size: 13px;
+    color: var(--rose);
+    margin-bottom: 22px;
+    line-height: 1.5;
+  }
+  .reason-card {
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+    background: white;
+    border-radius: 16px;
+    padding: 16px 18px;
+    margin-bottom: 12px;
+    box-shadow: 0 2px 10px rgba(242,135,154,0.08);
+    text-align: left;
+  }
+  .reason-emoji {
+    font-size: 24px;
+    flex-shrink: 0;
+    line-height: 1.2;
+  }
+  .reason-title {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--deep-rose);
+    margin-bottom: 4px;
+  }
+  .reason-text {
+    font-size: 13px;
+    color: var(--text);
+    line-height: 1.6;
+    opacity: 0.85;
+  }
+  .why-footer {
+    margin-top: 20px;
+    text-align: center;
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: 15px;
+    color: var(--rose);
+  }
+
+  /* ─────────────── BLOOM GAME ─────────────── */
+  .game-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 8px;
+    margin-bottom: 18px;
+  }
+  .game-flower {
+    aspect-ratio: 1;
+    background: white;
+    border: 1.5px solid var(--blush);
+    border-radius: 14px;
+    font-size: clamp(20px, 6vw, 28px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: transform 0.2s ease, background 0.3s ease, border-color 0.3s ease;
+    user-select: none;
+  }
+  .game-flower:hover:not(.bloomed) { transform: scale(1.1) rotate(-4deg); }
+  .game-flower.bloomed {
+    background: var(--petal);
+    border-color: var(--rose);
+    cursor: default;
+    animation: popIn 0.4s cubic-bezier(.22,.68,0,1.3) both;
+  }
+  .game-progress {
+    font-size: 12px;
+    color: var(--rose);
+    letter-spacing: 0.5px;
+    margin-bottom: 14px;
+    text-align: center;
+  }
+  .game-message-box {
+    display: none;
+    background: white;
+    border-left: 3px solid var(--rose);
+    border-radius: 16px;
+    padding: 18px 20px;
+    text-align: left;
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    color: var(--text);
+    font-size: 14px;
+    line-height: 1.7;
+    box-shadow: 0 2px 12px rgba(242,135,154,0.1);
+    animation: popIn 0.4s cubic-bezier(.22,.68,0,1.3) both;
+    margin-bottom: 12px;
+  }
+  .game-complete {
+    display: none;
+    text-align: center;
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: 16px;
+    color: var(--deep-rose);
+    margin-top: 8px;
+    animation: popIn 0.5s cubic-bezier(.22,.68,0,1.3) both;
+  }
+
+  /* ─────────────── MEMORY MATCH GAME ─────────────── */
+  .memory-stats {
+    display: flex;
+    justify-content: center;
+    gap: 22px;
+    font-size: 12px;
+    color: var(--rose);
+    letter-spacing: 0.5px;
+    margin-bottom: 14px;
+  }
+  .memory-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 8px;
+    margin-bottom: 18px;
+    perspective: 600px;
+  }
+  .memory-card {
+    aspect-ratio: 1;
+    cursor: pointer;
+  }
+  .memory-card-inner {
+    width: 100%; height: 100%;
+    position: relative;
+    transition: transform 0.45s cubic-bezier(.22,.68,0,1.2);
+    transform-style: preserve-3d;
+  }
+  .memory-card.flipped .memory-card-inner,
+  .memory-card.matched .memory-card-inner {
+    transform: rotateY(180deg);
+  }
+  .memory-face {
+    position: absolute; inset: 0;
+    display: flex; align-items: center; justify-content: center;
+    font-size: clamp(18px, 5.5vw, 26px);
+    border-radius: 12px;
+    border: 1.5px solid var(--blush);
+    backface-visibility: hidden;
+  }
+  .memory-front {
+    background: var(--blush);
+    color: var(--deep-rose);
+  }
+  .memory-back {
+    background: white;
+    transform: rotateY(180deg);
+  }
+  .memory-card.matched .memory-back {
+    background: var(--petal);
+    border-color: var(--rose);
+  }
+  .memory-card.matched .memory-card-inner {
+    animation: matchPop 0.5s cubic-bezier(.22,.68,0,1.3);
+  }
+  @keyframes matchPop {
+    0%   { transform: rotateY(180deg) scale(1); }
+    50%  { transform: rotateY(180deg) scale(1.12); }
+    100% { transform: rotateY(180deg) scale(1); }
+  }
+
+  /* ─────────────── POPUP MODAL ─────────────── */
+  #popup-overlay {
+    display: none;
+    position: fixed; inset: 0; z-index: 999;
+    background: rgba(249, 198, 208, 0.55);
+    backdrop-filter: blur(6px);
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+  }
+  #popup-overlay.show { display: flex; }
+
+  #popup-box {
+    background: var(--cream);
+    border-radius: 28px;
+    max-width: 400px;
+    width: 100%;
+    padding: 44px 36px 36px;
+    text-align: center;
+    box-shadow: 0 8px 48px rgba(201,80,106,0.22);
+    animation: popIn 0.5s cubic-bezier(.22,.68,0,1.3) both;
+    position: relative;
+  }
+  @keyframes popIn {
+    from { opacity:0; transform: scale(0.8) translateY(20px); }
+    to   { opacity:1; transform: scale(1) translateY(0); }
+  }
+
+  .popup-emoji { font-size: 52px; display: block; margin-bottom: 16px;
+    animation: wiggle 2.5s ease-in-out infinite; }
+
+  #popup-box h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 22px;
+    color: var(--deep-rose);
+    line-height: 1.3;
+    margin-bottom: 14px;
+  }
+  #popup-box p {
+    font-size: 14px;
+    color: var(--text);
+    line-height: 1.7;
+    margin-bottom: 28px;
+    opacity: 0.85;
+  }
+  #popup-btn {
+    background: linear-gradient(135deg, var(--rose), var(--deep-rose));
+    color: white;
+    border: none;
+    border-radius: 100px;
+    padding: 13px 32px;
+    font-size: 14px;
+    font-family: 'Lato', sans-serif;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    cursor: pointer;
+    transition: opacity 0.2s, transform 0.1s;
+    width: 100%;
+  }
+  #popup-btn:hover  { opacity: 0.9; }
+  #popup-btn:active { transform: scale(0.97); }
+
+  .popup-corner-flowers {
+    position: absolute; font-size: 20px; opacity: 0.4; pointer-events: none;
+  }
+  .popup-corner-flowers.tl { top: 14px; left: 16px; }
+  .popup-corner-flowers.tr { top: 14px; right: 16px; }
+  .popup-corner-flowers.bl { bottom: 14px; left: 16px; }
+  .popup-corner-flowers.br { bottom: 14px; right: 16px; }
+</style>
+</head>
+<body>
+
+<!-- ══════════ POPUP MODAL ══════════ -->
+<div id="popup-overlay">
+  <div id="popup-box">
+    <span class="popup-corner-flowers tl">🌸</span>
+    <span class="popup-corner-flowers tr">🌷</span>
+    <span class="popup-corner-flowers bl">🌺</span>
+    <span class="popup-corner-flowers br">💐</span>
+    <span class="popup-emoji">🫶</span>
+    <h2>Okay, listen up.<br>This is important.</h2>
+    <p>
+      This is one of the <em>rare</em> times you're gonna see me be nice and heartfelt,
+      so screenshot this, frame it, do whatever you need to do —
+      because it's not happening again anytime soon. 🙄🩷
+      <br><br>
+      You better read every single word.
+    </p>
+    <button id="popup-btn" onclick="closePopup()">Okay okay, I'm ready 🌸</button>
+  </div>
+</div>
+
+<!-- ══════════ LOCK SCREEN ══════════ -->
+<div id="lock-screen">
+  <span class="lock-flower">🌸</span>
+  <h1>Something special<br>is on its way…</h1>
+  <p class="subtitle">This page blooms on <strong>June 26th</strong> 🎂<br>Check back on Ayma's birthday!</p>
+
+  <div id="bday-banner">🎉 Today is Ayma's Birthday! 🎉</div>
+
+  <div class="countdown-row">
+    <div class="cd-tile"><span class="cd-num" id="cd-d">00</span><span class="cd-label">Days</span></div>
+    <div class="cd-tile"><span class="cd-num" id="cd-h">00</span><span class="cd-label">Hours</span></div>
+    <div class="cd-tile"><span class="cd-num" id="cd-m">00</span><span class="cd-label">Mins</span></div>
+    <div class="cd-tile"><span class="cd-num" id="cd-s">00</span><span class="cd-label">Secs</span></div>
+  </div>
+
+  <div class="pw-divider">
+    <div class="pw-divider-line"></div>
+    <span>🔒 Creator access</span>
+    <div class="pw-divider-line"></div>
+  </div>
+
+  <div class="pw-input-wrap">
+    <input id="pw-input" type="password" placeholder="Enter password…" autocomplete="off" />
+    <button id="pw-toggle" onclick="togglePw()" title="Show/hide">👁</button>
+  </div>
+  <button id="pw-btn" onclick="checkPw()">Unlock Preview 🌸</button>
+  <div id="pw-error"></div>
+</div>
+
+<!-- ══════════ BIRTHDAY CARD ══════════ -->
+<div id="card-wrap">
+<div class="card">
+
+  <div class="petal-bg" id="petals"></div>
+
+  <div class="corner tl">
+    <svg width="110" height="110" viewBox="0 0 110 110" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="28" cy="28" r="10" fill="#F9C6D0" opacity=".7"/>
+      <circle cx="28" cy="28" r="5"  fill="#F2879A"/>
+      <ellipse cx="28" cy="14" rx="6" ry="10" fill="#F9C6D0" opacity=".6"/>
+      <ellipse cx="28" cy="42" rx="6" ry="10" fill="#F9C6D0" opacity=".6" transform="rotate(180 28 28)"/>
+      <ellipse cx="14" cy="28" rx="6" ry="10" fill="#F9C6D0" opacity=".6" transform="rotate(-90 28 28)"/>
+      <ellipse cx="42" cy="28" rx="6" ry="10" fill="#F9C6D0" opacity=".6" transform="rotate(90 28 28)"/>
+      <ellipse cx="18" cy="18" rx="5" ry="9" fill="#FDE8EE" opacity=".5" transform="rotate(-45 28 28)"/>
+      <ellipse cx="38" cy="18" rx="5" ry="9" fill="#FDE8EE" opacity=".5" transform="rotate(45 28 28)"/>
+      <ellipse cx="18" cy="38" rx="5" ry="9" fill="#FDE8EE" opacity=".5" transform="rotate(45 28 28)"/>
+      <ellipse cx="38" cy="38" rx="5" ry="9" fill="#FDE8EE" opacity=".5" transform="rotate(-45 28 28)"/>
+      <circle cx="68" cy="18" r="7" fill="#FDE8EE" opacity=".8"/>
+      <circle cx="68" cy="18" r="3.5" fill="#F2879A" opacity=".7"/>
+      <ellipse cx="68" cy="8"  rx="4" ry="7" fill="#FDE8EE" opacity=".5"/>
+      <ellipse cx="68" cy="28" rx="4" ry="7" fill="#FDE8EE" opacity=".5" transform="rotate(180 68 18)"/>
+      <ellipse cx="58" cy="18" rx="4" ry="7" fill="#FDE8EE" opacity=".5" transform="rotate(-90 68 18)"/>
+      <ellipse cx="78" cy="18" rx="4" ry="7" fill="#FDE8EE" opacity=".5" transform="rotate(90 68 18)"/>
+      <path d="M50 55 Q55 40 70 45 Q60 58 50 55Z" fill="#B5D5A0" opacity=".7"/>
+      <path d="M15 70 Q20 55 35 60 Q25 73 15 70Z" fill="#B5D5A0" opacity=".6"/>
+    </svg>
+  </div>
+  <div class="corner tr">
+    <svg width="110" height="110" viewBox="0 0 110 110" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="28" cy="28" r="10" fill="#F9C6D0" opacity=".7"/>
+      <circle cx="28" cy="28" r="5"  fill="#F2879A"/>
+      <ellipse cx="28" cy="14" rx="6" ry="10" fill="#F9C6D0" opacity=".6"/>
+      <ellipse cx="28" cy="42" rx="6" ry="10" fill="#F9C6D0" opacity=".6" transform="rotate(180 28 28)"/>
+      <ellipse cx="14" cy="28" rx="6" ry="10" fill="#F9C6D0" opacity=".6" transform="rotate(-90 28 28)"/>
+      <ellipse cx="42" cy="28" rx="6" ry="10" fill="#F9C6D0" opacity=".6" transform="rotate(90 28 28)"/>
+      <circle cx="68" cy="18" r="7" fill="#FDE8EE" opacity=".8"/>
+      <circle cx="68" cy="18" r="3.5" fill="#F2879A" opacity=".7"/>
+      <ellipse cx="68" cy="8"  rx="4" ry="7" fill="#FDE8EE" opacity=".5"/>
+      <ellipse cx="68" cy="28" rx="4" ry="7" fill="#FDE8EE" opacity=".5" transform="rotate(180 68 18)"/>
+      <ellipse cx="58" cy="18" rx="4" ry="7" fill="#FDE8EE" opacity=".5" transform="rotate(-90 68 18)"/>
+      <ellipse cx="78" cy="18" rx="4" ry="7" fill="#FDE8EE" opacity=".5" transform="rotate(90 68 18)"/>
+      <path d="M50 55 Q55 40 70 45 Q60 58 50 55Z" fill="#B5D5A0" opacity=".7"/>
+      <path d="M15 70 Q20 55 35 60 Q25 73 15 70Z" fill="#B5D5A0" opacity=".6"/>
+    </svg>
+  </div>
+  <div class="corner bl">
+    <svg width="110" height="110" viewBox="0 0 110 110" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="28" cy="28" r="10" fill="#F9C6D0" opacity=".7"/>
+      <circle cx="28" cy="28" r="5"  fill="#F2879A"/>
+      <ellipse cx="28" cy="14" rx="6" ry="10" fill="#F9C6D0" opacity=".6"/>
+      <ellipse cx="28" cy="42" rx="6" ry="10" fill="#F9C6D0" opacity=".6" transform="rotate(180 28 28)"/>
+      <ellipse cx="14" cy="28" rx="6" ry="10" fill="#F9C6D0" opacity=".6" transform="rotate(-90 28 28)"/>
+      <ellipse cx="42" cy="28" rx="6" ry="10" fill="#F9C6D0" opacity=".6" transform="rotate(90 28 28)"/>
+      <circle cx="68" cy="18" r="7" fill="#FDE8EE" opacity=".8"/>
+      <circle cx="68" cy="18" r="3.5" fill="#F2879A" opacity=".7"/>
+      <path d="M50 55 Q55 40 70 45 Q60 58 50 55Z" fill="#B5D5A0" opacity=".7"/>
+    </svg>
+  </div>
+  <div class="corner br">
+    <svg width="110" height="110" viewBox="0 0 110 110" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="28" cy="28" r="10" fill="#F9C6D0" opacity=".7"/>
+      <circle cx="28" cy="28" r="5"  fill="#F2879A"/>
+      <ellipse cx="28" cy="14" rx="6" ry="10" fill="#F9C6D0" opacity=".6"/>
+      <ellipse cx="28" cy="42" rx="6" ry="10" fill="#F9C6D0" opacity=".6" transform="rotate(180 28 28)"/>
+      <ellipse cx="14" cy="28" rx="6" ry="10" fill="#F9C6D0" opacity=".6" transform="rotate(-90 28 28)"/>
+      <ellipse cx="42" cy="28" rx="6" ry="10" fill="#F9C6D0" opacity=".6" transform="rotate(90 28 28)"/>
+      <circle cx="68" cy="18" r="7" fill="#FDE8EE" opacity=".8"/>
+      <circle cx="68" cy="18" r="3.5" fill="#F2879A" opacity=".7"/>
+      <path d="M50 55 Q55 40 70 45 Q60 58 50 55Z" fill="#B5D5A0" opacity=".7"/>
+    </svg>
+  </div>
+
+  <div style="position:relative;z-index:1;text-align:center;">
+    <div class="tag">✨ Special Delivery ✨</div>
+    <div class="headline">Happy Birthday,</div>
+    <span class="name">Ayma</span>
+    <div class="divider">
+      <div class="divider-line"></div>
+      <span class="divider-icon">🌸</span>
+      <div class="divider-line"></div>
+    </div>
+    <div class="flower-row">
+      <div class="flower-badge">🌸</div>
+      <div class="flower-badge">🌺</div>
+      <div class="flower-badge">🌷</div>
+      <div class="flower-badge">💐</div>
+      <div class="flower-badge">🌼</div>
+      <div class="flower-badge">🌹</div>
+    </div>
+
+    <!-- ══════ CHAPTER SELECT ══════ -->
+    <div id="chapter-select">
+      <div class="chapter-intro">pick where you wanna start 👇</div>
+      <div class="chapter-grid">
+        <div class="chapter-btn" onclick="showView('view-letter')">
+          <div class="chapter-icon">💌</div>
+          <div class="chapter-text">
+            <div class="chapter-title">A Letter For You</div>
+            <div class="chapter-sub">read this one properly</div>
+          </div>
+          <div class="chapter-arrow">→</div>
+        </div>
+        <div class="chapter-btn" onclick="showView('view-why')">
+          <div class="chapter-icon">💖</div>
+          <div class="chapter-text">
+            <div class="chapter-title">Why I'd Always Choose You</div>
+            <div class="chapter-sub">the real reasons, no cap</div>
+          </div>
+          <div class="chapter-arrow">→</div>
+        </div>
+        <div class="chapter-btn" onclick="showView('view-game')">
+          <div class="chapter-icon">🌷</div>
+          <div class="chapter-text">
+            <div class="chapter-title">Bloom Garden</div>
+            <div class="chapter-sub">a tiny game, just for fun</div>
+          </div>
+          <div class="chapter-arrow">→</div>
+        </div>
+        <div class="chapter-btn" onclick="showView('view-memory')">
+          <div class="chapter-icon">🎀</div>
+          <div class="chapter-text">
+            <div class="chapter-title">Memory Match</div>
+            <div class="chapter-sub">find the pairs, unlock messages</div>
+          </div>
+          <div class="chapter-arrow">→</div>
+        </div>
+      </div>
+
+      <div class="footer-row">
+        <div class="badge">🎂 Birthday Girl</div>
+        <div class="badge">🌸 Flower Power</div>
+        <div class="badge">✨ You're a Star</div>
+      </div>
+    </div>
+
+    <!-- ══════ VIEW: LETTER ══════ -->
+    <div id="view-letter" class="view-section">
+      <button class="back-btn" onclick="backToChapters()">← back</button>
+      <div class="letter-card">
+        <div class="letter-seal">💌</div>
+        <div class="letter-label">🎀 A letter for you</div>
+        <div class="letter-body">
+          <span class="salutation">Dear Ayma,</span>
+          I don't say things like this often — actually, let's be honest, I basically never do — so the fact that you're reading this means you should take it very seriously.
+          <br><br>
+          You mean a lot to me. More than I probably ever show, and more than I'll ever say out loud in real life. You're one of those people who is genuinely good on the inside — not just "nice" on the surface, but actually, deeply good. The kind of person who cares even when they don't have to. That's rare, and I see it in you even when I don't say it.
+          <br><br>
+          And yeah — I know I can be mean sometimes. I know I say things in a harsh way or I act like I don't care. But that's just how I am. It doesn't mean I actually mean it. If anything, the people I'm most comfortable being myself around are the people I care about most. So… take that however you want. 🙄💗
+          <br><br>
+          You deserve every good thing that's coming your way, Ayma. A birthday, a whole year, a whole life full of things that make you smile. You're a good person and the world is genuinely better with you in it.
+          <br><br>
+          Happy birthday. Don't make it weird. 🎂
+          <span class="sign-off">— Someone who cares (but won't admit it in person) 🎀</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══════ VIEW: WHY I'D ALWAYS CHOOSE YOU ══════ -->
+    <div id="view-why" class="view-section">
+      <button class="back-btn" onclick="backToChapters()">← back</button>
+      <div class="why-heading">Why I'd always choose you</div>
+      <p class="why-sub">No cap, no jokes for a second. Here's the actual truth.</p>
+
+      <div class="reason-card">
+        <div class="reason-emoji">🤝</div>
+        <div>
+          <div class="reason-title">Real ones are rare</div>
+          <div class="reason-text">You're one of the realest people I know — no fake energy, no games, just you. That's harder to find than people think, and I'm not about to throw that away for something temporary.</div>
+        </div>
+      </div>
+
+      <div class="reason-card">
+        <div class="reason-emoji">🛡️</div>
+        <div>
+          <div class="reason-title">You actually show up</div>
+          <div class="reason-text">Even when I'm difficult, even when I'm annoying on purpose — you stick around because you actually care, not because you have to. That kind of loyalty doesn't get replaced.</div>
+        </div>
+      </div>
+
+      <div class="reason-card">
+        <div class="reason-emoji">😂</div>
+        <div>
+          <div class="reason-title">It's never boring with you</div>
+          <div class="reason-text">Talking nonsense, arguing about the dumbest stuff, laughing way too hard at things that aren't even that funny — being around you is just easy. That's rare too.</div>
+        </div>
+      </div>
+
+      <div class="reason-card">
+        <div class="reason-emoji">💯</div>
+        <div>
+          <div class="reason-title">You keep me in check</div>
+          <div class="reason-text">You're not scared to tell me when I'm wrong or being an idiot, straight to my face. I need that. Most people just nod along — you don't, and I respect that more than I say.</div>
+        </div>
+      </div>
+
+      <div class="reason-card">
+        <div class="reason-emoji">🌱</div>
+        <div>
+          <div class="reason-title">This has survived a lot</div>
+          <div class="reason-text">We've been through enough arguments, distance, and dumb situations to know this friendship isn't going anywhere. Relationships come and go — what we have has already proven it lasts.</div>
+        </div>
+      </div>
+
+      <div class="reason-card">
+        <div class="reason-emoji">🔒</div>
+        <div>
+          <div class="reason-title">Trust like this isn't replaceable</div>
+          <div class="reason-text">I trust you with things I genuinely don't trust anyone else with. Once you build that with someone, you don't risk it for anyone new — simple as that.</div>
+        </div>
+      </div>
+
+      <div class="why-footer">tl;dr — you're irreplaceable, and that's just facts. 🌸</div>
+    </div>
+
+    <!-- ══════ VIEW: BLOOM GAME ══════ -->
+    <div id="view-game" class="view-section">
+      <button class="back-btn" onclick="backToChapters()">← back</button>
+      <div class="why-heading">Bloom Garden 🌷</div>
+      <p class="why-sub">Tap each bud — every flower that blooms drops a little message for you.</p>
+      <div class="game-progress" id="game-progress">0 / 10 bloomed</div>
+      <div class="game-grid" id="game-grid"></div>
+      <div class="game-message-box" id="game-message-box"></div>
+      <div class="game-complete" id="game-complete">You bloomed the whole garden 🌸<br>That's everything I wanted to say. Happy birthday, Ayma. 🎀</div>
+    </div>
+
+    <!-- ══════ VIEW: MEMORY MATCH ══════ -->
+    <div id="view-memory" class="view-section">
+      <button class="back-btn" onclick="backToChapters()">← back</button>
+      <div class="why-heading">Memory Match 🎀</div>
+      <p class="why-sub">Flip two cards at a time. Every pair you match unlocks a little message.</p>
+      <div class="memory-stats">
+        <span id="mem-moves">Moves: 0</span>
+        <span id="mem-pairs">Pairs: 0 / 6</span>
+      </div>
+      <div class="memory-grid" id="memory-grid"></div>
+      <div class="game-message-box" id="mem-message-box"></div>
+      <div class="game-complete" id="mem-complete">Every pair found, every message read. 🎀<br>That's basically my whole heart laid out — happy birthday, Ayma. 🌸</div>
+    </div>
+
+  </div>
+
+</div>
+</div>
+
+<script>
+  const PASSWORD   = '40501002676';
+  const BDAY_MONTH = 6;   // June (0-indexed: 5, but we use getMonth()+1 style below)
+  const BDAY_DAY   = 26;
+
+  function pad(n){ return String(n).padStart(2,'0'); }
+
+  function isBirthday(){
+    const now = new Date();
+    return now.getMonth()+1 === BDAY_MONTH && now.getDate() === BDAY_DAY;
+  }
+
+  function updateCountdown(){
+    const now    = new Date();
+    const year   = now.getFullYear();
+    let bday     = new Date(year, BDAY_MONTH-1, BDAY_DAY, 0, 0, 0);
+    if(now >= bday) bday = new Date(year+1, BDAY_MONTH-1, BDAY_DAY, 0, 0, 0);
+    const diff   = bday - now;
+    const d = Math.floor(diff / 86400000);
+    const h = Math.floor((diff % 86400000) / 3600000);
+    const m = Math.floor((diff % 3600000)  / 60000);
+    const s = Math.floor((diff % 60000)    / 1000);
+    document.getElementById('cd-d').textContent = pad(d);
+    document.getElementById('cd-h').textContent = pad(h);
+    document.getElementById('cd-m').textContent = pad(m);
+    document.getElementById('cd-s').textContent = pad(s);
+  }
+
+  function showCard(){
+    document.getElementById('lock-screen').style.display = 'none';
+    // Show the popup first, THEN reveal card after dismissal
+    document.getElementById('popup-overlay').classList.add('show');
+  }
+
+  function closePopup(){
+    document.getElementById('popup-overlay').classList.remove('show');
+    document.getElementById('card-wrap').style.display = 'block';
+    initPetals();
+    initGame();
+    initMemory();
+  }
+
+  function checkPw(){
+    const val = document.getElementById('pw-input').value.trim();
+    const err = document.getElementById('pw-error');
+    if(val === PASSWORD){
+      err.textContent = '';
+      showCard();
+    } else {
+      err.textContent = '❌ Wrong password, try again!';
+      const inp = document.getElementById('pw-input');
+      inp.classList.remove('shake');
+      void inp.offsetWidth; // reflow to restart animation
+      inp.classList.add('shake');
+      setTimeout(()=> inp.classList.remove('shake'), 500);
+    }
+  }
+
+  // Allow pressing Enter
+  document.getElementById('pw-input').addEventListener('keydown', e => {
+    if(e.key === 'Enter') checkPw();
+  });
+
+  function togglePw(){
+    const inp = document.getElementById('pw-input');
+    inp.type = inp.type === 'password' ? 'text' : 'password';
+  }
+
+  function initPetals(){
+    const petalEl = document.getElementById('petals');
+    const emojis  = ['🌸','🌺','🌷','✨','💗','🌼'];
+    for(let i=0;i<18;i++){
+      const p   = document.createElement('span');
+      p.className = 'fp';
+      p.textContent = emojis[Math.floor(Math.random()*emojis.length)];
+      const left  = Math.random()*100;
+      const delay = Math.random()*8;
+      const dur   = 7+Math.random()*6;
+      const top   = 20+Math.random()*80;
+      p.style.cssText = `left:${left}%;top:${top}%;animation-duration:${dur}s;animation-delay:${delay}s;`;
+      petalEl.appendChild(p);
+    }
+  }
+
+  function showView(id){
+    document.getElementById('chapter-select').style.display = 'none';
+    document.querySelectorAll('.view-section').forEach(v => v.style.display = 'none');
+    document.getElementById(id).style.display = 'block';
+    document.getElementById('card-wrap').scrollIntoView({behavior:'smooth', block:'start'});
+  }
+
+  function backToChapters(){
+    document.querySelectorAll('.view-section').forEach(v => v.style.display = 'none');
+    document.getElementById('chapter-select').style.display = 'block';
+  }
+
+  /* ───────── Bloom Garden mini game ───────── */
+  const BUDS = ['🌱','🌱','🌱','🌱','🌱','🌱','🌱','🌱','🌱','🌱'];
+  const BLOOMS = ['🌸','🌺','🌷','🌼','🌹','💐','🌸','🌺','🌷','🌼'];
+  const GAME_MESSAGES = [
+    "You make ordinary days feel less boring just by being in them.",
+    "I don't say it enough, but I'm proud of you — for real.",
+    "Your laugh is one of my favorite sounds. Don't let it go to your head. 🙄",
+    "You're allowed to be soft and strong at the same time — you're proof it works.",
+    "Whatever you've been doubting about yourself lately — stop. You're doing better than you think.",
+    "If past-you could see how far you've come, she'd be so proud of you.",
+    "You deserve people who show up for you the way you show up for everyone else.",
+    "Happy birthday to someone who gives herself way less credit than she deserves.",
+    "I hope this year quietly gives you everything you've been hoping for.",
+    "Okay that's the last one. Go eat some cake now. 🎂🌸"
+  ];
+
+  let bloomedCount = 0;
+  let gameInit = false;
+
+  function initGame(){
+    if(gameInit) return;
+    gameInit = true;
+    const grid = document.getElementById('game-grid');
+    for(let i=0;i<10;i++){
+      const btn = document.createElement('div');
+      btn.className = 'game-flower';
+      btn.textContent = BUDS[i];
+      btn.dataset.index = i;
+      btn.addEventListener('click', () => bloom(i, btn));
+      grid.appendChild(btn);
+    }
+  }
+
+  function bloom(i, el){
+    if(el.classList.contains('bloomed')) return;
+    el.classList.add('bloomed');
+    el.textContent = BLOOMS[i];
+
+    const box = document.getElementById('game-message-box');
+    box.style.display = 'none';
+    void box.offsetWidth;
+    box.textContent = '🌸 ' + GAME_MESSAGES[i];
+    box.style.display = 'block';
+
+    bloomedCount++;
+    document.getElementById('game-progress').textContent = bloomedCount + ' / 10 bloomed';
+
+    if(bloomedCount === 10){
+      document.getElementById('game-complete').style.display = 'block';
+    }
+  }
+
+  /* ───────── Memory Match game ───────── */
+  const MEM_SYMBOLS  = ['🌸','🌺','🌷','🌼','🌹','💐'];
+  const MEM_MESSAGES = [
+    "Match found 🎀 — kinda like us as friends, honestly. We just work.",
+    "You're one of the very few people who actually gets my humor. That's rarer than you think.",
+    "I know some days have been harder than they looked — you've handled them better than you give yourself credit for.",
+    "If I had to pick one person to be stuck with on a bad day, it'd be you. No debate, no hesitation.",
+    "You've grown so much, and I notice it, even on the days I don't say anything.",
+    "Last pair — happy birthday, for real. Every word in here, I mean it. 🎀"
+  ];
+
+  let memFirst = null, memSecond = null, memLock = false;
+  let memMatches = 0, memMoves = 0;
+  let memInit = false;
+
+  function shuffleArray(arr){
+    for(let i = arr.length - 1; i > 0; i--){
+      const j = Math.floor(Math.random() * (i+1));
+      [arr[i], arr[j]] = [arr[j], arr[i]];
+    }
+    return arr;
+  }
+
+  function initMemory(){
+    if(memInit) return;
+    memInit = true;
+
+    let deck = [];
+    MEM_SYMBOLS.forEach((sym, idx) => {
+      deck.push({sym, pair: idx});
+      deck.push({sym, pair: idx});
+    });
+    deck = shuffleArray(deck);
+
+    const grid = document.getElementById('memory-grid');
+    deck.forEach(item => {
+      const card = document.createElement('div');
+      card.className = 'memory-card';
+      card.dataset.pair = item.pair;
+      card.innerHTML = `
+        <div class="memory-card-inner">
+          <div class="memory-face memory-front">🎀</div>
+          <div class="memory-face memory-back">${item.sym}</div>
+        </div>`;
+      card.addEventListener('click', () => flipCard(card));
+      grid.appendChild(card);
+    });
+  }
+
+  function flipCard(card){
+    if(memLock) return;
+    if(card.classList.contains('flipped') || card.classList.contains('matched')) return;
+
+    card.classList.add('flipped');
+
+    if(!memFirst){
+      memFirst = card;
+      return;
+    }
+
+    memSecond = card;
+    memMoves++;
+    document.getElementById('mem-moves').textContent = 'Moves: ' + memMoves;
+    memLock = true;
+
+    if(memFirst.dataset.pair === memSecond.dataset.pair){
+      memFirst.classList.add('matched');
+      memSecond.classList.add('matched');
+
+      const pairIdx = parseInt(memFirst.dataset.pair, 10);
+      const box = document.getElementById('mem-message-box');
+      box.style.display = 'none';
+      void box.offsetWidth;
+      box.textContent = '🎀 ' + MEM_MESSAGES[pairIdx];
+      box.style.display = 'block';
+
+      memMatches++;
+      document.getElementById('mem-pairs').textContent = 'Pairs: ' + memMatches + ' / 6';
+
+      memFirst = null; memSecond = null; memLock = false;
+
+      if(memMatches === 6){
+        document.getElementById('mem-complete').style.display = 'block';
+      }
+    } else {
+      setTimeout(() => {
+        memFirst.classList.remove('flipped');
+        memSecond.classList.remove('flipped');
+        memFirst = null; memSecond = null; memLock = false;
+      }, 800);
+    }
+  }
+
+
+
+  // On load: if it's the birthday, show card automatically; else show countdown
+  if(isBirthday()){
+    document.getElementById('bday-banner').style.display = 'block';
+    // hide countdown tiles since diff = 0
+    document.querySelectorAll('.cd-tile').forEach(t => t.style.display='none');
+    // Still require interaction — Ayma can now see it, but also show the card directly
+    showCard();
+  } else {
+    updateCountdown();
+    setInterval(updateCountdown, 1000);
+  }
+</script>
+</body>
+</html>
